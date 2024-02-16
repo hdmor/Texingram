@@ -2,6 +2,7 @@ package m.eight.texingram.presentation.chat
 
 import android.widget.Toast
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -60,7 +61,7 @@ fun ChatScreen(viewModel: ChatViewModel = hiltViewModel(), username: String?) {
 
     val state = viewModel.chatState.value
     Column(modifier = Modifier.fillMaxSize().padding(16.dp)) {
-        LazyColumn(modifier = Modifier.weight(1f).fillMaxWidth(), reverseLayout = true) {
+        LazyColumn(modifier = Modifier.weight(1f).fillMaxWidth(), reverseLayout = true, verticalArrangement = Arrangement.spacedBy(32.dp)) {
             item { Spacer(modifier = Modifier.height(32.dp)) }
             items(state.messages) { message ->
                 val isMessageBelongToMe = message.username == username
