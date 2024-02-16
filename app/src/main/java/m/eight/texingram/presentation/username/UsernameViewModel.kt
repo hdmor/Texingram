@@ -25,9 +25,7 @@ class UsernameViewModel @Inject constructor() : ViewModel() {
 
     fun onJoinClick() {
         viewModelScope.launch {
-            if (username.value.isNotBlank()) {
-                _onJoinChat.emit(username.value)
-            }
+            if (username.value.isNotBlank()) _onJoinChat.emit(username.value)
         }
     }
 }
