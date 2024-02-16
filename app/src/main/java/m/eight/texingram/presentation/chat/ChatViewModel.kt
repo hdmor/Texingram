@@ -19,7 +19,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ChatViewModel @Inject constructor(
-    savedStateHandle: SavedStateHandle,
+    private val savedStateHandle: SavedStateHandle,
     private val messageService: MessageService,
     private val chatSocketService: ChatSocketService
 ) : ViewModel() {
@@ -33,7 +33,7 @@ class ChatViewModel @Inject constructor(
     private val _toastEvent = MutableSharedFlow<String>()
     val toastEvent = _toastEvent.asSharedFlow()
 
-    init {
+    fun connectToChat() {
         getAllMessages()
         savedStateHandle.get<String>("username")?.let {
             viewModelScope.launch {
