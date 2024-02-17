@@ -8,7 +8,6 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
@@ -56,7 +55,7 @@ class ChatViewModel @Inject constructor(
         viewModelScope.launch { chatSocketService.closeSession() }
     }
 
-    fun getAllMessages() {
+    private fun getAllMessages() {
         viewModelScope.launch {
             _chatState.value = chatState.value.copy(isLoading = true)
             val result = messageService.getAll()
@@ -66,7 +65,7 @@ class ChatViewModel @Inject constructor(
 
     fun sendMessage() {
         viewModelScope.launch {
-            if (message.value.isNotBlank()) chatSocketService.sendMessage(message.value)
+            if (message.value.isNotBlank()) chatSocketService.sendMessage(message.value).apply { _message.value = "" }
         }
     }
 

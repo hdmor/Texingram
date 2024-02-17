@@ -7,9 +7,7 @@ import dagger.hilt.components.SingletonComponent
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.cio.CIO
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
-import io.ktor.client.plugins.logging.Logging
 import io.ktor.client.plugins.websocket.WebSockets
-import io.ktor.serialization.kotlinx.json.json
 import m.eight.texingram.data.remote.ChatSocketService
 import m.eight.texingram.data.remote.ChatSocketServiceImpl
 import m.eight.texingram.data.remote.MessageService
@@ -23,11 +21,8 @@ object AppModule {
     @Provides
     @Singleton
     fun provideHttpClient(): HttpClient = HttpClient(CIO) {
-        install(Logging)
         install(WebSockets)
-        install(ContentNegotiation) {
-            json(kotlinx.serialization.json.Json { ignoreUnknownKeys = true })
-        }
+        install(ContentNegotiation)
     }
 
     @Provides

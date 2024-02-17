@@ -28,7 +28,10 @@ class MainActivity : ComponentActivity() {
                             type = NavType.StringType
                             nullable = true
                         })
-                    ) { ChatScreen(username = it.arguments?.getString("username")) }
+                    ) {
+                        val username = it.arguments?.getString("username") ?: ""
+                        ChatScreen(username = username)
+                    }
                 }
             }
         }
